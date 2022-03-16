@@ -6,7 +6,7 @@ const config = {
     range: 'INFO',
     majorDimension: 'COLUMNS',
   },
-  PORT: 3200,
+  PORT: process.env.PORT || 3200,
   basicAuthSettings: {
     users: { admin: 'supersecret' },
   },

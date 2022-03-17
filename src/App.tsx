@@ -18,8 +18,8 @@ function App() {
   const [options, setOptions] = useState([])
   const getAsyncData = async () => {
     const { sheets } = await fetchData({ path: 'sheets' })
-    const options = sheets.map((item: any) => item.properties.title)
-    setOptions(options)
+    const mappedOptions = sheets?.map((item: any) => item.properties.title)
+    setOptions(mappedOptions)
   }
 
   useEffect(() => {

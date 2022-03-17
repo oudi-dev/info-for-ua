@@ -28,7 +28,7 @@ function App() {
   return (
     <StyleWrapper>
       <Router>
-        {options.length > 0 && <AppBar options={options} />}
+        {options?.length > 0 && <AppBar options={options} />}
         <Routes>
           {options &&
             options.map((option: string) => (

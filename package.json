@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "heroku-prebuild": "npm install --prefix server && npm install",
-    "heroku-start": "npm start --prefix server",
+    "heroku-prebuild": "npm install",
+    "heroku-start": "node server/index.js",
     "start": "concurrently \"yarn server\" \"yarn client\"",
     "client": "react-scripts start",
     "server": "node server/index.js",

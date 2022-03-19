@@ -3,7 +3,7 @@ const config = {
     spreadsheetId:
       process.env.SPREADSHEET_ID ||
       '1nKkLuGTQVf7lxAH4nqlVdGG5QILXtKOHElrk5pwNwyc',
-    range: 'INFO',
+    range: 'sheet0',
     majorDimension: 'COLUMNS',
   },
   PORT: process.env.PORT || 3200,

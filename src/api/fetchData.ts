@@ -1,5 +1,3 @@
-import { useState, useEffect, useCallback } from 'react'
-
 const getHostName = () => process.env.NODE_ENV === 'development' ? 'http://localhost:3200' : ''
 
 type Options = {
@@ -13,7 +11,7 @@ export const fetchData = async ({path, sheet}: Options) => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        sheet: sheet || 'INFO',
+        sheet: sheet || 'sheet0',
       },
     }
   )

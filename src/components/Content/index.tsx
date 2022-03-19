@@ -5,13 +5,24 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { styled } from '@mui/material'
+import LoadingSpinner from '../LoadingSpinner'
 
-const StyledH4 = styled('h3')({
+const StyledWrapper = styled('div')({
+  paddingTop: '4rem',
+})
+
+const StyledH3 = styled('h3')({
   margin: 0,
 })
 const StyledParagraph = styled('p')({
   margin: 0,
 })
+const StyledAccordionSummary = styled(AccordionSummary)`
+  min-height: 40px !important;
+  & > div {
+    margin: 0 !important;
+  }
+`
 
 const createMarkup = (p: string) => {
   return { __html: p }
@@ -22,17 +33,17 @@ const renderAccordion = (items: string[]) => {
   const paragraphs = items.slice(1)
   return (
     <Accordion key={title}>
-      <AccordionSummary
+      <StyledAccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls={`header${title.replace(' ', '')}`}
-        id={`header${title.replace(' ', '')}}`}
+        aria-controls={title.replace(/ /g, '')}
+        id={title.replace(/ /g, '')}
       >
-        <StyledH4>{title}</StyledH4>
-      </AccordionSummary>
+        <StyledH3>{title}</StyledH3>
+      </StyledAccordionSummary>
       <AccordionDetails>
         {paragraphs.map((item, index) => (
           <StyledParagraph key={item + index}>
-            <div dangerouslySetInnerHTML={createMarkup(item)} />
+            <span dangerouslySetInnerHTML={createMarkup(item)} />
           </StyledParagraph>
         ))}
       </AccordionDetails>
@@ -47,7 +58,6 @@ type Props = {
 const Content = ({ sheetName }: Props) => {
   const [isLoading, setLoading] = useState(true)
   const [dataFromResponse, setData] = useState<any>()
-
   const getAsyncData = useCallback(async () => {
     const { values } = await fetchData({ path: 'getdata', sheet: sheetName })
     if (values) {
@@ -64,9 +74,11 @@ const Content = ({ sheetName }: Props) => {
   return (
     <>
       {isLoading ? (
-        <div>Loading</div>
+        <LoadingSpinner />
       ) : (
-        dataFromResponse?.map((items: any) => renderAccordion(items))
+        <StyledWrapper>
+          {dataFromResponse?.map((items: any) => renderAccordion(items))}
+        </StyledWrapper>
       )}
     </>
   )

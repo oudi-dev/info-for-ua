@@ -4,11 +4,11 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { styled } from '@mui/material'
+import { styled, Typography } from '@mui/material'
 import LoadingSpinner from '../LoadingSpinner'
 
 const StyledWrapper = styled('div')({
-  paddingTop: '4rem',
+  padding: '4rem 0 4rem 0',
 })
 
 const StyledH3 = styled('h3')({
@@ -28,6 +28,22 @@ const createMarkup = (p: string) => {
   return { __html: p }
 }
 
+const renderSingleAntry = (items: string[]) => {
+  const title = items[0]
+  const paragraphs = items.slice(1)
+  return (
+    <>
+      <Typography variant="h6">
+        <strong>{title}</strong>
+      </Typography>
+      {paragraphs.map((item, index) => (
+        <StyledParagraph key={item + index}>
+          <span dangerouslySetInnerHTML={createMarkup(item)} />
+        </StyledParagraph>
+      ))}
+    </>
+  )
+}
 const renderAccordion = (items: string[]) => {
   const title = items[0]
   const paragraphs = items.slice(1)
@@ -70,14 +86,15 @@ const Content = ({ sheetName }: Props) => {
     setLoading(true)
     getAsyncData()
   }, [getAsyncData, sheetName])
-
   return (
     <>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
         <StyledWrapper>
-          {dataFromResponse?.map((items: any) => renderAccordion(items))}
+          {dataFromResponse && dataFromResponse.length === 1
+            ? renderSingleAntry(dataFromResponse[0])
+            : dataFromResponse.map((items: any) => renderAccordion(items))}
         </StyledWrapper>
       )}
     </>

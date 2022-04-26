@@ -16,6 +16,7 @@ const StyledH3 = styled('h3')({
 })
 const StyledParagraph = styled('p')({
   margin: 0,
+  paddingBottom: '0.5rem',
 })
 const StyledAccordionSummary = styled(AccordionSummary)`
   min-height: 40px !important;
